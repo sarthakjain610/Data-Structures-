@@ -1,0 +1,141 @@
+#include<iostream>
+#include<unordered_map>
+#include<cmath>
+#include<map>
+#include<stack>
+#include<tuple>
+#include<vector>
+#include<string>
+#include<set>
+#include<stdio.h>
+#include<cstring>
+#include<algorithm>
+#include<list>
+#include<climits> 
+#include <stdlib.h>
+#include<iomanip> 
+#include<fstream>
+#include<sstream>
+#include<queue>
+#include<bitset>
+#include<cstdlib>
+
+
+#define f(i,a,n) for(int i=a;i<n;++i)
+#define all(n) n.begin(),n.end()
+#define int long long int
+#define double long double
+#define endl "\n"
+#define vi vector<int>
+#define pb push_back 
+#define inf 1e8
+#define ninf -1*1e8
+#define ff first
+#define ss second
+#define pii pair<int,int>
+
+using namespace std;
+const int mod=1e9+7;
+
+int gcd(int a, int b){
+	//a%=mod;
+	//b%=mod;
+	if(b==0) return a;
+	else {
+		return (gcd(b,a%b));
+	}
+} 
+int lcm(int a,int b){return (a*b)/gcd(a,b);} 
+
+
+int binary_exponentiation(int a,int b){
+	if(b==1) return a%mod;
+	if(b==0) return 1;
+	if(b%2!=0){
+		int t=binary_exponentiation(a,b/2);
+		t%=mod;
+		return ((t%mod)*(t%mod)*(a%mod))%mod;
+	}
+	else {
+		int t=binary_exponentiation(a,b/2);
+		return ((t%mod)*(t%mod))%mod;
+	}
+}
+int binary_exponentiation_wm(int a,int b){
+	if(b==1) return a;
+	if(b==0) return 1;
+	if(b%2!=0){
+		int t=binary_exponentiation_wm(a,b/2);
+		return a*t*t;
+	}
+	else{
+		int t=binary_exponentiation_wm(a,b/2);
+		return t*t;
+
+	}
+}
+
+
+
+// Brian Kernigham Algorithm:
+int count_set_bits(int n){
+	int ans=0;
+	while(n){
+		++ans;
+		n=(n&(n-1));
+
+	}
+	return ans;
+}
+
+vi fib;
+vi fib2;
+void solve(){
+	int n;
+	cin>>n;
+	int ans=fib[n]*binary_exponentiation(2,fib2[n+1]-1);
+	ans%=mod;
+	cout<<ans<<endl;
+	
+
+
+
+}
+
+int32_t main()
+{
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);
+	#endif
+			ios_base::sync_with_stdio(0); 
+			cin.tie(0); 
+			cout.tie(0);
+		int t;  
+		t=1; 
+		cin>>t;
+		fib.resize(100006);
+		fib[0]=(0);
+		fib[1]=1;
+		for(int i=2;i<=100005;++i){
+			fib[i]=(fib[i-2]+fib[i-1])%mod;
+			fib[i]%=mod;
+
+		}
+		fib2.resize(100006);
+		fib2[0]=(0);
+		fib2[1]=1;
+		for(int i=2;i<=100005;++i){
+			fib2[i]=(fib2[i-2]+fib2[i-1])%(mod-1);
+			fib2[i]%=(mod-1);
+
+		}
+
+		
+		while(t--){		
+			solve(); 	
+			
+
+		}
+		return 0; 
+}
